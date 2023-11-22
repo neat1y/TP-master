@@ -1,0 +1,81 @@
+package com.example.demo.models;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.security.Timestamp;
+import java.util.List;
+
+@Entity
+@Table(name="operations")
+public class Operations {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
+    @Column(name = "sell")
+    private double sell ;
+    @Column(name = "buy")
+    private double buy;
+
+    private Timestamp operation_Date;
+    @ManyToOne
+    @JoinColumn(name = "user_id" , referencedColumnName = "id")
+    private Person person;
+    @ManyToOne
+    @JoinColumn(name ="currency_id", referencedColumnName = "id")
+    private Currency currency;
+
+    public Operations(double sell, double buy, Timestamp operation_Date) {
+        this.sell = sell;
+        this.buy = buy;
+        this.operation_Date = operation_Date;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public double getSell() {
+        return sell;
+    }
+
+    public void setSell(double sell) {
+        this.sell = sell;
+    }
+
+    public double getBuy() {
+        return buy;
+    }
+
+    public void setBuy(double buy) {
+        this.buy = buy;
+    }
+
+    public Timestamp getOperation_Date() {
+        return operation_Date;
+    }
+
+    public void setOperation_Date(Timestamp operation_Date) {
+        this.operation_Date = operation_Date;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
+    }
+}
