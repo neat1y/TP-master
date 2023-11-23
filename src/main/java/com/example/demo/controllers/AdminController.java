@@ -27,19 +27,18 @@ public class AdminController {
     }
     @GetMapping("/{id}")
     public String index(@PathVariable("id") int id,Model model){
-        model.addAttribute("person",personService.findById(id));
-        return "auth/def/index";
+        model.addAttribute("pers",personService.findById(id).get());
+        return "auth/admin/index";
     }
-    @GetMapping("/{id}/update")
+    @GetMapping("/{id}/change")
     public String patch(@PathVariable("id") int id,Model model){
-        model.addAttribute("person",personService.findById(id));
-        return "auth/def/index";
+        model.addAttribute("person",personService.findById(id).get());
+        return "auth/admin/change";
     }
-
-    @PatchMapping("/{id}")
-    public String index(@PathVariable("id") int id,@ModelAttribute("person") Person person){
+    @PostMapping("/{id}")
+    public String index(@PathVariable("id") int id,@ModelAttribute("pers") Person person){
         personService.update(id,person);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
     @PostMapping("/newday")

@@ -27,7 +27,18 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-
+            httpSecurity
+                    .authorizeRequests()
+                    .antMatchers("/auth/login","error","/auth/reg")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated()
+                    .and()
+                    .formLogin()
+                    .loginPage("/auth/login")
+                    .loginProcessingUrl("/auth/login")
+                    .defaultSuccessUrl("/operations/trade",true)
+                    .failureForwardUrl("/auth/login?error");
     }
     @Bean
     public PasswordEncoder getPasswordEncoder(){

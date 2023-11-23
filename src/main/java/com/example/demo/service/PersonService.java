@@ -24,13 +24,14 @@ public class PersonService {
         return personRepository.findAll();
     }
 
-    public String findById(Integer id) {
-        return personRepository.findById(id).get().getUsername();
+    public Optional<Person> findById(Integer id) {
+        return personRepository.findById(id);
     }
     @Transactional
     public void update(int id, Person person) {
-        Person pers=personRepository.getById(id);
-        pers.setUsername(pers.getUsername());
-        pers.setConfines(person.getConfines());
+        Person person1=personRepository.findByUsername(person.getUsername()).get();
+        person1.setConfines(person.getConfines());
+        person1.setUser_role(person.getUser_role());
     }
+
 }

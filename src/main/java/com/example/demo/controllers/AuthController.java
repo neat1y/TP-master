@@ -1,10 +1,12 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.Person;
+import com.example.demo.service.PersonService;
 import com.example.demo.service.RegService;
 import com.example.demo.util.PersonValidator;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,15 +14,22 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Objects;
+
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
     private final PersonValidator personValidator;
     private final RegService regService;
+    private final PersonService personService;
+
+    private final PasswordEncoder passwordEncoder;
     @Autowired
-    public AuthController(PersonValidator personValidator, RegService regService) {
+    public AuthController(PersonValidator personValidator, RegService regService, PersonService personService, PasswordEncoder passwordEncoder) {
         this.personValidator = personValidator;
         this.regService = regService;
+        this.personService = personService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/reg")
@@ -37,6 +46,21 @@ public class AuthController {
             person.setUser_role("USER_DEF");
             regService.reg(person);
             return "redirect:/auth/login";
+    }
+    @GetMapping("/login")
+    public String log(@ModelAttribute("person") Person person){
+        return "auth/login";
+    }
+    @PostMapping("/login")
+    public String auth(@ModelAttribute("person")  Person person){
+        person.setPassword(passwordEncoder.encode(person.getPassword()));
+        if(personService.findbyName(person.getUsername()).isEmpty()){
+            return "auth/login";
+        }
+        if(!Objects.equals(personService.findbyName(person.getUsername()).get().getPassword(), person.getPassword())){
+            return "auth/login";
+        }
+        return "auth/def/trade";
     }
 
 }

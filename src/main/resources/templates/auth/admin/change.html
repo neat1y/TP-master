@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/admin/{id}(id=${person.getId()})}" th:object="${person}">
+    <label for="username">Введите имя пользователя</label>
+    <input type="text" th:field="*{username}" id="username"/>
+    <br/>
+    <label for="Confines">Введите ограничение</label>
+    <input type="text" th:field="*{confines}" id="Confines"/>
+    <br/>
+    <label for="User_role">Введите роль</label>
+    <input type="text" th:field="*{user_role}" id="User_role"/>
+    <br/>
+    <input type="submit" value="Sign up!">
+</form>
+</body>
+</html>

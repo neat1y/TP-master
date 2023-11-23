@@ -24,7 +24,7 @@ public class OperationService {
         return operationRepository.findAll();
     }
 
-    public Operations findByLast() {
-        return operationRepository.findTopByOrderByIdDesc().get();
+    public Optional<Operations> findByLast() {
+        return operationRepository.findTopByOrderByIdDesc();
     }
 }
