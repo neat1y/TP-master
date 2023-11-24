@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @Controller
 @RequestMapping("/operations")
 public class DefaultController {
@@ -43,10 +45,11 @@ public class DefaultController {
         return "auth/def/trade";
     }
     @PostMapping()
-    public String trade(Operations operations,Model model){
-        
+    public String trade(Operations operations, Model model){
         operationService.save(operations);
-        model.addAttribute("name",personService.findById(operations.getPerson().getId()));
+        model.addAttribute("operations",operations);
+        model.addAttribute("kurs",currencyService.findLast());
+        model.addAttribute("person",personService.findById(operations.getPerson().getId()));
         return "auth/def/receipt";
     }
 }

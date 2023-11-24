@@ -22,3 +22,5 @@ create  table operations(
     operation_Date TIMESTAMP
 );
 ALTER TABLE person ADD confines int not null ;
+alter table operations add column dollar boolean;
+alter table operations add column euro boolean;

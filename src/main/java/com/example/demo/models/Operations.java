@@ -21,6 +21,28 @@ public class Operations {
     @ManyToOne
     @JoinColumn(name = "user_id" , referencedColumnName = "id")
     private Person person;
+    @Column(name = "euro")
+    private Boolean euro;
+
+    @Column(name = "dollar")
+    private Boolean dollar;
+
+    public Boolean getEuro() {
+        return euro;
+    }
+
+    public void setEuro(Boolean euro) {
+        this.euro = euro;
+    }
+
+    public Boolean getDollar() {
+        return dollar;
+    }
+
+    public void setDollar(Boolean dollar) {
+        this.dollar = dollar;
+    }
+
     @ManyToOne
     @JoinColumn(name ="currency_id", referencedColumnName = "id")
     private Currency currency;

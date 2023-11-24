@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-
+    <h6 th:object="${kurs}"  th:text="*{'курс евро к рублю ' +euro + ' курс доллар к рублю  ' +dollar+' дата курса '+currencyDate }"/>
+    <h6 th:object="${person}" th:text="*{'имя тот кто производил операцию ' + get().username}"/>
+    <h6 th:object="${operations}" th:text="*{'купил валюты ' +getBuy() +'продал валюты ' + getSell()}"/>
 </body>
 </html>
