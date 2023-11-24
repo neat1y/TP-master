@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+<h1>Регистрация</h1>
 <form th:method="POST" th:action="@{/auth/reg}" th:object="${person}">
     <label for="username">Введите имя пользователя</label>
     <input type="text" th:field="*{username}" id="username"/>

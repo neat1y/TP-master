@@ -51,16 +51,5 @@ public class AuthController {
     public String log(@ModelAttribute("person") Person person){
         return "auth/login";
     }
-    @PostMapping("/login")
-    public String auth(@ModelAttribute("person")  Person person){
-        person.setPassword(passwordEncoder.encode(person.getPassword()));
-        if(personService.findbyName(person.getUsername()).isEmpty()){
-            return "auth/login";
-        }
-        if(!Objects.equals(personService.findbyName(person.getUsername()).get().getPassword(), person.getPassword())){
-            return "auth/login";
-        }
-        return "auth/def/trade";
-    }
 
 }

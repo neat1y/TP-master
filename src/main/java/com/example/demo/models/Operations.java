@@ -31,6 +31,10 @@ public class Operations {
         this.operation_Date = operation_Date;
     }
 
+    public Operations() {
+
+    }
+
     public Integer getId() {
         return id;
     }

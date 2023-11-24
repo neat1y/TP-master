@@ -5,8 +5,23 @@
     <title>Title</title>
 </head>
 <body>
-<form th:action="/operations">
-<a>Hello</a>
+<div th:object="${value}">
+    <h2 th:text="'курс доллара к рублю ' + *{dollar} "/>
+    <br/>
+    <h2 th:text="'курс евро к рублю ' + *{euro} "/>
+    <br/>
+    <h2 th:text="'текущий день ' + *{currencyDate} "/>
+    <br/>
+</div>
+<form th:method="POST" th:action="@{/operations}" th:object="${last_oper}">
+    <div>
+        <label for="euro">Choose a car:</label>
+        <select id="euro" name="euro">
+            <option value="sell">Volvo</option>
+            <option value="buy">Saab</option>
+        </select>
+        <input type="submit" value="Submit">
+    </div>
 </form>
 </body>
 </html>

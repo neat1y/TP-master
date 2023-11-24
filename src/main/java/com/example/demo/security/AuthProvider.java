@@ -14,7 +14,7 @@ import java.util.Collections;
 
 @Service
 public class AuthProvider implements AuthenticationProvider {
-    private PersonDetailsService personDetailsService;
+    private final PersonDetailsService personDetailsService;
     @Autowired
     public AuthProvider(PersonDetailsService personDetailsService) {
         this.personDetailsService = personDetailsService;

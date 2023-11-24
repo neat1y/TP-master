@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+<a th:href="@{/admin/newday}">Новый день</a>
 <div th:each="person: ${people}">
     <a th:href="@{/admin/{id}(id=${person.getId()})}"
        th:text="${person.username}">user</a>

@@ -1,7 +1,9 @@
 package com.example.demo.controllers;
 
+import com.example.demo.models.Currency;
 import com.example.demo.models.Operations;
 import com.example.demo.models.Person;
+import com.example.demo.service.CurrencyService;
 import com.example.demo.service.OperationService;
 import com.example.demo.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +11,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
     private final PersonService personService;
     private final OperationService operationService;
+    private final CurrencyService currencyService;
     @Autowired
-    public AdminController(PersonService personService, OperationService operationService) {
+    public AdminController(PersonService personService, OperationService operationService, CurrencyService currencyService) {
         this.personService = personService;
         this.operationService = operationService;
+        this.currencyService = currencyService;
     }
 
     @GetMapping()
@@ -40,10 +49,18 @@ public class AdminController {
         personService.update(id,person);
         return "redirect:/admin";
     }
+    @GetMapping("/newday")
+    public String newday(@ModelAttribute("currency") Currency currency){
+        return "auth/admin/newday";
+    }
 
     @PostMapping("/newday")
-    public String day(@ModelAttribute("operations")Operations operations){
-        operationService.save(operations);
-        return "auth/admin/newday";
+    public String day(@ModelAttribute("currency") Currency currency){
+
+        Date currentDate = new Date();
+        // Преобразуем LocalDateTime в Timestamp
+        currency.setCurrencyDate(currentDate);
+        currencyService.save(currency);
+        return "redirect:/admin";
     }
 }

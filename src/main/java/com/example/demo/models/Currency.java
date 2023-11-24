@@ -1,7 +1,10 @@
 package com.example.demo.models;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.security.Timestamp;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 @Entity
 @Table(name ="currency")
@@ -17,14 +20,16 @@ public class Currency {
     @Column(name ="dollar")
     @NotNull
     private double dollar;
-    @Column(name="currencyDate")
-    private Timestamp currencyDate;
+    @Column(name="currencydate")
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date currencyDate;
     @OneToMany(mappedBy = "currency")
     private List<Operations> operations;
 
     public Currency() {
     }
-    public Currency(double euro, double dollar, Timestamp currencyDate) {
+    public Currency(double euro, double dollar, Date currencyDate) {
         this.euro = euro;
         this.dollar = dollar;
         this.currencyDate = currencyDate;
@@ -54,11 +59,11 @@ public class Currency {
         this.dollar = dollar;
     }
 
-    public Timestamp getCurrencyDate() {
+    public Date getCurrencyDate() {
         return currencyDate;
     }
 
-    public void setCurrencyDate(Timestamp currencyDate) {
+    public void setCurrencyDate(Date currencyDate) {
         this.currencyDate = currencyDate;
     }
 }

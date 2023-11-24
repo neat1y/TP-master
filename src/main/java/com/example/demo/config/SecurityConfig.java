@@ -37,7 +37,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                     .formLogin()
                     .loginPage("/auth/login")
                     .loginProcessingUrl("/auth/login")
-                    .defaultSuccessUrl("/operations/trade",true)
+                    .defaultSuccessUrl("/operations",true)
                     .failureForwardUrl("/auth/login?error");
     }
     @Bean
